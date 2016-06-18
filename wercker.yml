@@ -21,9 +21,5 @@ build:
                 echo "from location $(which ruby)"
                 echo -p "gem list: $(gem list)"
         #- script:
-            #name: run rubocop
-            #code: bundle exec rubocop
-
-        - script:
-            name: run minitest
-            code: bundle exec rake test
+            name: run rubocop
+            code: bundle exec rubocop:disable LineLength
