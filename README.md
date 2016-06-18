@@ -1,4 +1,4 @@
-Version 0.1
+Version 0.2
 
 # Description
 
@@ -19,4 +19,3 @@ Just clone the repository and start is using "vagrant up".
 
 ##Author
 Christian Johannsen, 2016
-
