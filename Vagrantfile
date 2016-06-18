@@ -23,9 +23,9 @@ Vagrant.configure('2') do |config|
   config.vm.define 'Delivery Server' do |delivery_server|
     delivery_server.vm.network 'private_network', ip: '192.168.100.1'
     delivery_server.vm.provision 'shell', inline: 'apt-get update && apt-get install -y build-essential git'
-    delivery_server.vm.provision 'file', source: 'delivery_0.4.465-1_amd64.deb', destination: '~/delivery_0.4.465-1_amd64.deb'
+    delivery_server.vm.provision 'file', source: 'delivery_0.4.437-1_amd64.deb', destination: '~/delivery_0.4.437-1_amd64.deb'
     delivery_server.vm.provision 'file', source: 'delivery.license', destination: '~/delivery.license'
-    delivery_server.vm.provision 'shell', inline: 'sudo dpkg -i /home/vagrant/delivery_0.4.465-1_amd64.deb'
+    delivery_server.vm.provision 'shell', inline: 'sudo dpkg -i /home/vagrant/delivery_0.4.437-1_amd64.deb'
     delivery_server.vm.provision 'shell', inline: 'sudo delivery-ctl setup --license /home/vagrant/delivery.license --key delivery.user --server- url https://192.168.100.2/organizations/deliveryorg'
     delivery_server.vm.provision 'shell', inline: 'sudo delivery-ctl-reconfigure --no-build-node'
 
