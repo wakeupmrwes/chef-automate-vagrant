@@ -4,7 +4,7 @@
 Vagrant.configure('2') do |config|
   config.vm.box = 'ubuntu/trusty64'
   config.vm.synced_folder '.', '/vagrant/'
-  config.vm.provision "shell", inline: "cp ~/.ssh/id_rsa* /root/.ssh/ && cp ~/.ssh/id_rsa.pub /root/.ssh/authorized_keys"
+  config.vm.provision 'shell', inline: 'cp ~/.ssh/id_rsa* /root/.ssh/ && cp ~/.ssh/id_rsa.pub /root/.ssh/authorized_keys'
 
   config.vm.define 'Chef Server' do |chef_server|
     chef_server.vm.network 'private_network', ip: '192.168.100.2'
