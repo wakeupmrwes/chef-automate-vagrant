@@ -8,9 +8,9 @@ Keep in mind that IP addresses and binaries are fixed, you have to change them t
 
 ## Nodes
 
-* chef-delivery		192.168.100.1
-* chef-server		192.168.100.2
-* chef-build01		192.168.100.3
+* chef-delivery 192.168.100.1
+* chef-server   192.168.100.2
+* chef-build01  192.168.100.3
 
 Please note that you can access the Delivery Server only by name (etc/hosts) and it´s public IP from external.
 
