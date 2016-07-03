@@ -5,22 +5,22 @@ Vagrant.configure('2') do |config|
   config.vm.box = 'ubuntu/trusty64'
   config.vm.synced_folder '.', '/vagrant/'
 
-  config.vm.provision "shell" do |s|
-   s.inline = <<-SHELL
+  config.vm.provision 'shell' do |s|
+    s.inline = <<-SHELL
      echo "127.0.0.1 localhost" | tee /etc/hosts
      echo "192.168.100.1 deliveryserver" | tee -a /etc/hosts
      echo "192.168.100.2 chefserver" | tee -a /etc/hosts
      echo "192.168.100.3 buildnode" | tee -a /etc/hosts
-   SHELL
+    SHELL
   end
 
   config.vm.provision 'shell', inline: 'cp /vagrant/id_rsa ~/.ssh/ && cp /vagrant/id_rsa.pub ~/.ssh/id_rsa.pub'
   config.vm.provision 'shell' do |s|
-   ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
-   s.inline = <<-SHELL
-     echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
-     echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
-   SHELL
+    ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
+    s.inline = <<-SHELL
+      echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+      echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+    SHELL
   end
 
   config.vm.define 'Chef Server' do |chef_server|
@@ -72,6 +72,4 @@ Vagrant.configure('2') do |config|
       vb.cpus = 4
     end
   end
-
-
 end
