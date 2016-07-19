@@ -80,7 +80,11 @@ Vagrant.configure('2') do |config|
     delivery_server.vm.provision 'shell', inline: 'sudo delivery-ctl reconfigure'
     delivery_server.vm.provision 'shell', inline: 'sudo delivery-ctl install-build-node -I /vagrant/chefdk-0.15.16-1.el7.x86_64-2.rpm -u vagrant -P vagrant -f buildnode'
     delivery_server.vm.provision 'shell', inline: 'sudo delivery-ctl create-enterprise cjohannsen --ssh-pub-key-file=/etc/delivery/builder_key.pub'
-    delivery_server.vm.provision 'shell', inline: 'echo '"delivery['elasticsearch']['urls'] = ['https://elasticsearch']"' | tee -a /etc/delivery/delivery.rb'
+    delivery_server.vm.provision 'shell' do |s|
+      s.inline = <<-SHELL
+        echo "delivery['elasticsearch']['urls'] = ['http://elasticsearch:9200']" | tee -a /etc/delivery/delivery.rb
+      SHELL
+    end
     delivery_server.vm.provision 'shell', inline: 'sudo delivery-ctl reconfigure'
     delivery_server.vm.provider :virtualbox do |vb|
       vb.memory = 4096

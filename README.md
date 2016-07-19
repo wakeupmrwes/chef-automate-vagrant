@@ -17,13 +17,11 @@ Please note that you can access the Delivery Server only by name (etc/hosts) and
 
 ## Comments
 
-Please note that the Elastcisearch VM has to listen on the public IP and Java has to be installed.
-
 Feel free to commit.
 
 ## version
 
-Version 0.4
+Version 0.5
 
 ## Author
 Christian Johannsen, 2016
