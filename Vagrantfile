@@ -48,10 +48,21 @@ Vagrant.configure('2') do |config|
     elasticsearch.vm.hostname = 'elasticsearch'
     elasticsearch.vm.network 'private_network', ip: '192.168.100.40'
     elasticsearch.vm.provision 'file', source: 'elasticsearch-2.3.4.rpm', destination: '~/elasticsearch-2.3.4.rpm'
+    elasticsearch.vm.provision 'shell', inline: 'sudo yum -y install java'
     elasticsearch.vm.provision 'shell', inline: 'rpm -Uvh -i /home/vagrant/elasticsearch-2.3.4.rpm'
+
+    elasticsearch.vm.provision 'shell' do |s|
+      s.inline = <<-SHELL
+       echo "network.host: 192.168.100.40" | tee -a /etc/elasticsearch/elasticsearch.yml
+       echo "http.port: 9200" | tee -a /etc/elasticsearch/elasticsearch.yml
+      SHELL
+    end
+
+    elasticsearch.vm.provision 'shell', inline: 'sudo systemctl stop firewalld'
     elasticsearch.vm.provision 'shell', inline: 'sudo systemctl daemon-reload'
     elasticsearch.vm.provision 'shell', inline: 'sudo systemctl enable elasticsearch.service'
     elasticsearch.vm.provision 'shell', inline: 'sudo systemctl start elasticsearch.service'
+    elasticsearch.vm.provision 'shell', inline: 'sudo systemctl status elasticsearch.service'
     elasticsearch.vm.provider :virtualbox do |vb|
       vb.memory = 1024
       vb.cpus = 2
