@@ -21,7 +21,7 @@ Feel free to commit.
 
 ## version
 
-Version 0.5
+Version 0.6
 
 ## Author
 Christian Johannsen, 2016
