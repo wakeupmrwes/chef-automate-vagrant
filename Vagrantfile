@@ -18,6 +18,7 @@ Vagrant.configure('2') do |config|
   config.vm.define 'Chef Server' do |chef_server|
     chef_server.vm.hostname = 'chefserver'
     chef_server.vm.network 'private_network', ip: '192.168.100.20'
+    chef_server.vm.network 'public_network'
     chef_server.vm.provision 'file', source: 'chef-server-core-12.8.0-1.el7.x86_64.rpm', destination: '/tmp/chef-server-core-12.8.0-1.el7.x86_64.rpm'
     chef_server.vm.provision 'shell', inline: 'rpm -Uvh /tmp/chef-server-core-12.8.0-1.el7.x86_64.rpm'
     chef_server.vm.provision 'shell', inline: 'sudo chef-server-ctl reconfigure'
@@ -26,6 +27,7 @@ Vagrant.configure('2') do |config|
     chef_server.vm.provision 'shell', inline: 'sudo opscode-push-jobs-server-ctl reconfigure'
     chef_server.vm.provision 'shell', inline: 'sudo chef-server-ctl install chef-manage'
     chef_server.vm.provision 'shell', inline: 'sudo chef-server-ctl reconfigure'
+    chef_server.vm.provision 'shell', inline: 'sudo chef-manage-ctl reconfigure --accept-license'
     chef_server.vm.provision 'shell', inline: 'sudo chef-server-ctl user-create delivery delivery user delivery@user.de "master" --filename delivery.user'
     chef_server.vm.provision 'shell', inline: 'sudo scp delivery.user /vagrant/'
     chef_server.vm.provision 'shell', inline: 'sudo chef-server-ctl org-create deliveryorg "my delivery organization" --filename ~/deliveryorg-validator.pem -a delivery'
@@ -82,7 +84,7 @@ Vagrant.configure('2') do |config|
     delivery_server.vm.provision 'shell', inline: 'sudo delivery-ctl create-enterprise cjohannsen --ssh-pub-key-file=/etc/delivery/builder_key.pub'
     delivery_server.vm.provision 'shell' do |s|
       s.inline = <<-SHELL
-        echo "delivery['elasticsearch']['urls'] = ['http://elasticsearch:9200']" | tee -a /etc/delivery/delivery.rb
+        echo "elasticsearch['urls'] = ['http://elasticsearch:9200']" | sudo tee -a /etc/delivery/delivery.rb
       SHELL
     end
     delivery_server.vm.provision 'shell', inline: 'sudo delivery-ctl reconfigure'
