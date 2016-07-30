@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure('2') do |config|
-  #config.vm.box = 'bento/centos-7.1'
+  # config.vm.box = 'bento/centos-7.1'
   config.vm.box = 'bento/centos-6.7'
   config.vm.synced_folder '.', '/vagrant/'
 
@@ -71,15 +71,15 @@ Vagrant.configure('2') do |config|
        echo "http.port: 9200" | tee -a /etc/elasticsearch/elasticsearch.yml
       SHELL
     end
-    #EL 6 only
+    # EL 6 only
     elasticsearch.vm.provision 'shell', inline: 'sudo service iptables stop'
     elasticsearch.vm.provision 'shell', inline: 'sudo service elasticsearch start'
-    #EL 7 only
-    #elasticsearch.vm.provision 'shell', inline: 'sudo systemctl stop firewalld'
-    #elasticsearch.vm.provision 'shell', inline: 'sudo systemctl daemon-reload'
-    #elasticsearch.vm.provision 'shell', inline: 'sudo systemctl enable elasticsearch.service'
-    #elasticsearch.vm.provision 'shell', inline: 'sudo systemctl start elasticsearch.service'
-    #elasticsearch.vm.provision 'shell', inline: 'sudo systemctl status elasticsearch.service'
+    # EL 7 only
+    # elasticsearch.vm.provision 'shell', inline: 'sudo systemctl stop firewalld'
+    # elasticsearch.vm.provision 'shell', inline: 'sudo systemctl daemon-reload'
+    # elasticsearch.vm.provision 'shell', inline: 'sudo systemctl enable elasticsearch.service'
+    # elasticsearch.vm.provision 'shell', inline: 'sudo systemctl start elasticsearch.service'
+    # elasticsearch.vm.provision 'shell', inline: 'sudo systemctl status elasticsearch.service'
     elasticsearch.vm.provider :virtualbox do |vb|
       vb.memory = 2048
       vb.cpus = 2
