@@ -8,10 +8,10 @@ Keep in mind that IP addresses and binaries are fixed, you have to change them t
 
 ## Nodes
 
-* chef-delivery 192.168.100.10
+* automate      192.168.100.10
 * chef-server   192.168.100.20
-* chef-build01  192.168.100.30
-* chef-elasticsearch 192.168.100.40
+* buildnode     192.168.100.30
+* compliance    192.168.100.40
 
 Please note that you can access the Delivery Server only by name (etc/hosts) and it´s public IP from external.
 
@@ -21,7 +21,7 @@ Feel free to commit.
 
 ## version
 
-Version 0.6
+Version 0.7
 
 ## Author
 Christian Johannsen, 2016
