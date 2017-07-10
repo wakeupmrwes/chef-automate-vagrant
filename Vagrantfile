@@ -64,13 +64,15 @@ Vagrant.configure("2") do |config|
     automate.vm.hostname = "automate"
     automate.vm.network "private_network", ip: "192.168.100.10"
     automate.vm.provision "file", source: settings["automate"]["package"], destination: settings["automate"]["tmp-path"]
+    automate.vm.provision "file", source: settings["chefdk"]["package"], destination: settings["chefdk"]["tmp-path"]
     automate.vm.provision "file", source: "delivery.license", destination: "~/delivery.license"
+    automate.vm.provision "file", source: "delivery.user", destination: "~/delivery.user"
     automate.vm.provision "shell", inline: "rpm -Uvh #{settings['automate']['tmp-path']}"
-    automate.vm.provision "shell", inline: "sudo automate-ctl setup --license /home/vagrant/delivery.license --key /vagrant/delivery.user --server-url https://chefserver/organizations/deliveryorg --enterprise=#{accounts['automate']['enterprise-name']} --fqdn=automate --no-build-node --no-configure"
+    automate.vm.provision "shell", inline: "sudo automate-ctl setup --license /home/vagrant/delivery.license --key /home/vagrant/delivery.user --server-url https://chefserver/organizations/deliveryorg --enterprise=#{accounts['automate']['enterprise-name']} --fqdn=automate --no-build-node --no-configure"
     automate.vm.provision "shell", inline: "sudo automate-ctl reconfigure"
     automate.vm.provision "shell", inline: "sudo automate-ctl create-enterprise #{accounts['automate']['enterprise-name']} --ssh-pub-key-file=/etc/delivery/builder_key.pub"
     # runner needs enterprise to install
-    automate.vm.provision "shell", inline: "sudo automate-ctl install-runner buildnode vagrant -P vagrant -I /vagrant/#{settings['chefdk']['package']} -y -e #{accounts['automate']['enterprise-name']}"
+    automate.vm.provision "shell", inline: "sudo automate-ctl install-runner buildnode vagrant -P vagrant -I #{settings['chefdk']['tmp-path']} -y -e #{accounts['automate']['enterprise-name']}"
     automate.vm.provision "shell", inline: "sudo automate-ctl reconfigure"
     automate.vm.provider :virtualbox do |vb|
       vb.memory = 4096

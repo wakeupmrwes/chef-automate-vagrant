@@ -28,13 +28,12 @@ Look at the vagrant output for the admin and builder password.
 
 e.g.
 ```
-==> Automate Server: Created enterprise: cjohannsen
 ==> Automate Server: Admin username: admin
-==> Automate Server: Admin password: jcImgI3kf0aS3iBeaD6ggYw5abyqoNB2DYw=
-==> Automate Server: Builder Password: Mf7R4Pg5i9wWktGM/oJGRdAIW7/WgSXSpF4=
-==> Automate Server: Web login: https://automate/e/cjohannsen/
-```
+==> Automate Server: Admin password: xV5ACwldepbr0wsbEittY+TMbFq605+KhSQ=
+==> Automate Server: Builder Password: yKm7KbszeIWfZPSaBbXt+Bc+swO1enliVcg=
+==> Automate Server: Web login: https://automate/e/wwilliams/
 
+```
 ## Comments
 
 Feel free to commit.
